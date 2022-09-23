@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "VjOC9vRaL2Nl+KljP2fZVIAuKi39+unW+OGMXxcIBdEzWhPLqXvnxtqkw1wU99uZ6zvURYyjciOEVgez8wwp4Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\ModulComponents\\ModulComponents.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\BIA97506\\.nuget\\packages\\grasshopper\\7.13.21348.13001\\grasshopper.7.13.21348.13001.nupkg.sha512",
+    "C:\\Users\\BIA97506\\.nuget\\packages\\rhinocommon\\7.13.21348.13001\\rhinocommon.7.13.21348.13001.nupkg.sha512"
+  ],
+  "logs": []
+}
