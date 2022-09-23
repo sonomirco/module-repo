@@ -1,0 +1,3 @@
+[submodule "Gh-Components/core-repo"]
+	path = Gh-Components/core-repo
+	url = https://github.com/sonomirco/core-repo
