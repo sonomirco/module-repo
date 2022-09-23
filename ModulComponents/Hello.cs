@@ -3,10 +3,12 @@ using Grasshopper.Kernel;
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
+using Gh_core;
 
 namespace ModulComponents
 {
-    public class Hello : GH_Component
+    public class Hello : CustomComponent
     {
         /// <summary>
         /// Each implementation of GH_Component must provide a public 
@@ -16,9 +18,7 @@ namespace ModulComponents
         /// new tabs/panels will automatically be created.
         /// </summary>
         public Hello()
-          : base("Hello", "Nickname",
-            "Description",
-            "Category", "Subcategory")
+          : base("Hello", "SayHello","Module")
         {
         }
 
@@ -34,6 +34,7 @@ namespace ModulComponents
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
+            pManager.AddTextParameter("H", "Hello", "Say Hello", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -43,6 +44,10 @@ namespace ModulComponents
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            string email = UserPrincipal.Current.EmailAddress;
+            string userId = Environment.UserName;
+
+            DA.SetData(0, $"Hello user {userId} with email {email}");
         }
 
         /// <summary>

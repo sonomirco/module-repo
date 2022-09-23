@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gh-Components", "Gh-Compone
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModulComponents", "..\ModulComponents\ModulComponents.csproj", "{5B111EF0-FE3D-4B87-9A4E-A582913D4471}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "submodules", "submodules", "{00A69B7A-A6CF-49DD-949D-BD350B60FCD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gh-core", "core-repo\Gh-core\Gh-core\Gh-core.csproj", "{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{5B111EF0-FE3D-4B87-9A4E-A582913D4471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B111EF0-FE3D-4B87-9A4E-A582913D4471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B111EF0-FE3D-4B87-9A4E-A582913D4471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8FBDCA6-2CE9-4A7F-9BF6-E555FE7818D0} = {00A69B7A-A6CF-49DD-949D-BD350B60FCD0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E664D7D-9385-41DE-985E-F10CB138DD35}

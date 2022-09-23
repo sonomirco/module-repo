@@ -31,6 +31,15 @@
         "build": {
           "build/RhinoCommon.targets": {}
         }
+      },
+      "Gh-core/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Gh-core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Gh-core.dll": {}
+        }
       }
     }
   },
@@ -70,10 +79,16 @@
         "rhinocommon.nuspec",
         "rhinocommon.png"
       ]
+    },
+    "Gh-core/1.0.0": {
+      "type": "project",
+      "path": "../Gh-Components/core-repo/Gh-core/Gh-core/Gh-core.csproj",
+      "msbuildProject": "../Gh-Components/core-repo/Gh-core/Gh-core/Gh-core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
+      "Gh-core >= 1.0.0",
       "Grasshopper >= 7.13.21348.13001"
     ]
   },
@@ -108,7 +123,11 @@
       "frameworks": {
         "net48": {
           "targetAlias": "net48",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj": {
+              "projectPath": "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -4,6 +4,21 @@
     "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\ModulComponents\\ModulComponents.csproj": {}
   },
   "projects": {
+    "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj",
+        "projectName": "Gh-core",
+        "projectPath": "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
     "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\ModulComponents\\ModulComponents.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +46,11 @@
         "frameworks": {
           "net48": {
             "targetAlias": "net48",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj": {
+                "projectPath": "C:\\Users\\BIA97506\\_MYFOLDER\\Repos\\module-repo\\Gh-Components\\core-repo\\Gh-core\\Gh-core\\Gh-core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
