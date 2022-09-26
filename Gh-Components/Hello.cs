@@ -1,9 +1,8 @@
+using System;
 using Gh_core;
 using Grasshopper.Kernel;
-using System;
-using System.DirectoryServices.AccountManagement;
 
-namespace ModulComponents
+namespace Gh_Components
 {
     public class Hello : CustomComponent
     {
@@ -15,7 +14,7 @@ namespace ModulComponents
         /// new tabs/panels will automatically be created.
         /// </summary>
         public Hello()
-          : base("Hello", "SayHello", "Module")
+          : base("Hello", "SayHello","Module")
         {
         }
 
@@ -41,10 +40,9 @@ namespace ModulComponents
         /// to store data in output parameters.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            string email = UserPrincipal.Current.EmailAddress;
             string userId = Environment.UserName;
 
-            DA.SetData(0, $"Hello user {userId} with email {email}");
+            DA.SetData(0, $"Hello user {userId}");
         }
 
         /// <summary>
