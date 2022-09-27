@@ -36,4 +36,6 @@ jobs:
     - name: 📜 Display
       run: |
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
-          echo ${{ steps.create-json.output }}
+          echo ${{ steps.create-json.outputs }}
+          echo ${{ steps.create-json.outputs.files }}
+          echo ${{ steps.create-json.outputs.full-path }}
