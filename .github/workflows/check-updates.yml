@@ -37,9 +37,11 @@ jobs:
 
   # JOB to build and test each of modified packages
   build:
-    needs: changes
     runs-on: ubuntu-latest
+    needs: changes
     steps:
+    - run: echo ${{needs.changes.outputs.output2}}
+    
     - name: create-json
       id: create-json
       uses: jsdaniell/create-json@1.1.2
@@ -55,6 +57,4 @@ jobs:
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
           echo ${{ steps.create-json.outputs.full-path }}   
           
-    - run: |
-          echo ${{fromJson(steps.set_var.outputs.packageJson).name}}
-          echo ${{needs.changes.outputs.output2}}
+    - run: echo ${{fromJson(steps.set_var.outputs.packageJson).name}}
