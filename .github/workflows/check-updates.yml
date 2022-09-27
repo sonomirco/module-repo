@@ -7,10 +7,6 @@ jobs:
   # JOB to run change detection
   changes:
     runs-on: ubuntu-latest
-    outputs:
-      # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
-      output2: ${{ steps.setversion.outputs.version }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -24,8 +20,7 @@ jobs:
         packageversion="${{steps.get-version.outputs.version}}"
         echo $packageversion
         echo "::set-output name=output2::$packageversion"
-    - run: echo ${{steps.setversion.outputs.output2}}
-        
+
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
       uses: dorny/paths-filter@v2
@@ -34,6 +29,11 @@ jobs:
         filters: |
           project1: 'Gh-Components/**'
           project2: 'ModulComponents/**'
+          
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+      output2: ${{ steps.setversion.outputs.version }}
 
   # JOB to build and test each of modified packages
   build:
