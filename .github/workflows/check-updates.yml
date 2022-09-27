@@ -11,6 +11,9 @@ jobs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Check which services were modified
     # For pull requests it's not necessary to checkout the code
     - uses: dorny/paths-filter@v2
       id: filter
