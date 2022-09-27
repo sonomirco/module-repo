@@ -20,8 +20,8 @@ jobs:
       with:
         proj-path: ./Gh-Components/Gh-Components.csproj 
     - id: setversion
-      run: |
-        packageversion=`${{ steps.get-versin.outputs.version }}`
+      run: | 
+        packageversion="${{steps.get-version.outputs.version}}"
         echo $packageversion
         echo "::set-output name=output2::$packageversion"
         
