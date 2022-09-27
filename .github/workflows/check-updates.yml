@@ -1,7 +1,7 @@
 name: Checks for changes
 
 on:
-  push:
+  workflow_dispatch:
   
 jobs:
   # JOB to run change detection
@@ -15,10 +15,6 @@ jobs:
       id: get-version
       with:
         proj-path: ./Gh-Components/Gh-Components.csproj 
-    - name: bumping version
-      uses: sonomirco/module-repo/.github/workflows/bump-version.yml@main
-      with:
-        version: ${{steps.get-version.outputs.version}}
     - id: setversion
       run: | 
         packageversion="${{steps.get-version.outputs.version}}"
