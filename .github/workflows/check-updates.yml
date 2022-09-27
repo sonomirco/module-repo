@@ -36,7 +36,7 @@ jobs:
         email: 'mirco.bianchini@mottmac.com'
     - name: 📜 Display
       run: |
+          content=`cat ${{ steps.create-json.outputs.full-path }}`
+          echo "${{fromJson($content)}}"
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
-          echo ${{ steps.create-env.outputs.full-path }}
-          echo ${{ steps.create-env.outputs }}
           echo ${{ steps.create-json.outputs.full-path }}
