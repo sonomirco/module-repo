@@ -24,7 +24,7 @@ jobs:
         packageversion="${{steps.get-version.outputs.version}}"
         echo $packageversion
         echo "::set-output name=output2::$packageversion"
-    - run: ${{steps.setversion.outputs.output2}}
+    - run: echo ${{steps.setversion.outputs.output2}}
         
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
