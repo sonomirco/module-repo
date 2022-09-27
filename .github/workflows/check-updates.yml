@@ -1,0 +1,36 @@
+name: Checks for changes
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Check which services were modified
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            component:
+              - 'Gh-Components/**'
+            module:
+              - 'ModulComponents/**'
+      - name: Component project changed
+        if: steps.filter.outputs.component == 'true'
+        run: |
+          echo "Component changed"
+          for i in ${{ steps.filter.outputs.services_files }}; do echo $i | awk ; done
+          
+      - name: Module project changed
+        if: steps.filter.outputs.module == 'true'
+        run: |
+          echo "Module changed"
+          for i in ${{ steps.filter.outputs.services_files }}; do echo $i | awk ; done      
+          
+      - name: 📜 Display
+        run: |
+          echo ${{ steps.filter.outputs.changes }}
