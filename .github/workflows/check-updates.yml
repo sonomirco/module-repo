@@ -10,6 +10,7 @@ jobs:
     outputs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
+      version: ${{steps.get-versin.outputs.version }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -18,11 +19,7 @@ jobs:
       id: get-version
       with:
         proj-path: ./Gh-Components/Gh-Components.csproj 
-    
-    - name: 📜 Display
-      id: save_var
-      run: |
-          echo "::set-output name=version::${{steps.get-version.outputs.version}}"
+        
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
       uses: dorny/paths-filter@v2
@@ -54,4 +51,4 @@ jobs:
           
     - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
-          echo "${{needs.changes.steps.save_var.outputs.version}}"
+          echo "${{needs.changes.steps.outputs.version}}"
