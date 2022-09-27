@@ -7,13 +7,6 @@ namespace ModulComponents
 {
     public class Hello : CustomComponent
     {
-        /// <summary>
-        /// Each implementation of GH_Component must provide a public 
-        /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
-        /// new tabs/panels will automatically be created.
-        /// </summary>
         public Hello()
           : base("Hello", "SayHello", "Module")
         {
