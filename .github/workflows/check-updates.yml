@@ -49,6 +49,6 @@ jobs:
           
     - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
-          echo "${{changes.steps.get-version.outputs.version}}"
-          echo "${{changes.steps.get-version.outputs.assembly-version}}"
-          echo "${{changes.steps.get-version.outputs.file-version}}"
+          echo "${{needs.changes.steps.get-version.outputs.version}}"
+          echo "${{needs.changes.steps.get-version.outputs.assembly-version}}"
+          echo "${{needs.changes.steps.get-version.outputs.file-version}}"
