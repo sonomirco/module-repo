@@ -5,13 +5,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D08B0848-A8A6-4A54-9A59-25334C2FF9F5}</ProjectGuid>
-    <OutputType>Library</OutputType>
+	  <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Gh_Components</RootNamespace>
     <AssemblyName>Gh-Components</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+	  <Version>1.0.7777.0</Version>
+	  <AssemblyVersion>1.0.8888.0</AssemblyVersion>
+	  <FileVersion>1.0.9999.0</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
