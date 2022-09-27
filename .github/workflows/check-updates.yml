@@ -2,35 +2,35 @@ name: Checks for changes
 
 on:
   push:
-
+  
 jobs:
-  deploy:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+    # For pull requests it's not necessary to checkout the code
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          project1: 'Gh-Components/**'
+          project2: 'ModulComponents/**'
+
+  # JOB to build and test each of modified packages
+  build:
+    needs: changes
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Check which services were modified
-        uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          list-files: shell
-          filters: |
-            component:
-              - 'Gh-Components/**'
-            module:
-              - 'ModulComponents/**'
-      - name: Component project changed
-        if: steps.filter.outputs.component == 'true'
-        run: |
-          echo "Component changed"
-          for i in ${{ steps.filter.outputs.services_files }}; do echo $i | awk ; done
-          
-      - name: Module project changed
-        if: steps.filter.outputs.module == 'true'
-        run: |
-          echo "Module changed"
-          for i in ${{ steps.filter.outputs.services_files }}; do echo $i | awk ; done      
-          
-      - name: 📜 Display
-        run: |
-          echo ${{ steps.filter.outputs.changes }}
+    - name: create-json
+      id: create-json
+      uses: jsdaniell/create-json@1.1.2
+      with:
+        name: "new-json-file.json"
+        json: '{"name":"jsdaniell", "password":"mypass"}'
+    - name: 📜 Display
+      run: |
+          echo ${{ fromJSON(needs.changes.outputs.packages) }}
+          echo ${{ create-json.json }}
