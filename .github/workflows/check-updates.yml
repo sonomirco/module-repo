@@ -13,6 +13,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Get version proj
+      uses: kzrnm/get-net-sdk-project-versions-action@v1
+      id: get-version
+      with:
+        proj-path: ./Gh-Components/Gh-Components.csproj 
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
       uses: dorny/paths-filter@v2
@@ -32,13 +37,7 @@ jobs:
       uses: jsdaniell/create-json@1.1.2
       with:
         name: "new-json-file.json"
-        json: '{"name":"jsdaniell", "password":"mypass"}'
-        
-    - name: Get version proj
-      uses: kzrnm/get-net-sdk-project-versions-action@v1
-      id: get-version
-      with:
-        proj-path: Gh-Components/Gh-Components.csproj    
+        json: '{"name":"jsdaniell", "password":"mypass"}'   
         
     - name: 📜 Display
       id: set_var
@@ -50,6 +49,6 @@ jobs:
           
     - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
-          echo "${{steps.get-version.outputs.version}}"
-          echo "${{steps.get-version.outputs.assembly-version}}"
-          echo "${{steps.get-version.outputs.file-version}}"
+          echo "${{changes.steps.get-version.outputs.version}}"
+          echo "${{changes.steps.get-version.outputs.assembly-version}}"
+          echo "${{changes.steps.get-version.outputs.file-version}}"
