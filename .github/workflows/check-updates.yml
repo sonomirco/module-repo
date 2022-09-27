@@ -10,7 +10,7 @@ jobs:
     outputs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
-      version: ${{steps.set-version.outputs.version }}
+      output2: ${{steps.setversion.outputs.version }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -19,8 +19,11 @@ jobs:
       id: get-version
       with:
         proj-path: ./Gh-Components/Gh-Components.csproj 
-    - id: set-version
-      run: echo "::set-output name=version::${{steps.get-versin.outputs.version }}"
+    - id: setversion
+      run: |
+        packageversion=`${{ steps.get-versin.outputs.version }}`
+        echo $packageversion
+        echo "::set-output name=version::$packageversion"
         
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
