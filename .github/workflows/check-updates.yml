@@ -53,4 +53,4 @@ jobs:
           
     - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
-          echo "${{needs.changes.steps.outputs.version}}"
+          echo "${{needs.changes.outputs.version}}"
