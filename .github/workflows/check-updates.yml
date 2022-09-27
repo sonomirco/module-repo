@@ -43,4 +43,4 @@ jobs:
           echo ${{ steps.create-json.outputs.full-path }}   
           
     - run: |
-          echo "${{fromJson(steps.set_var.outputs.packageJson)}}"
+          echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
