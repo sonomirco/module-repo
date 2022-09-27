@@ -28,16 +28,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: create-json
-      uses: schdck/create-env-json@v1
-      id: create-env
+      id: create-json
+      uses: jsdaniell/create-json@1.1.2
       with:
-        file-name: 'env.json'
-        name: 'Mirco'
-        email: 'mirco.bianchini@mottmac.com'
+        name: "new-json-file.json"
+        json: '{"name":"jsdaniell", "password":"mypass"}'
+        
     - name: 📜 Display
       id: set_var
       run: |
-          content=`cat ${{ steps.create-json.outputs.full-path }}`
+          content=`cat ./new-json-file.json`
           echo "::set-output name=packageJson::$content"
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
           echo ${{ steps.create-json.outputs.full-path }}   
