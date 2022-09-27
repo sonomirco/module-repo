@@ -35,8 +35,12 @@ jobs:
         name: 'Mirco'
         email: 'mirco.bianchini@mottmac.com'
     - name: 📜 Display
+      id: set_var
       run: |
           content=`cat ${{ steps.create-json.outputs.full-path }}`
-          echo "${{fromJson($content)}}"
+          echo "::set-output name=packageJson::$content"
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
-          echo ${{ steps.create-json.outputs.full-path }}
+          echo ${{ steps.create-json.outputs.full-path }}   
+          
+    - run: |
+          echo "${{fromJson(steps.set_var.outputs.packageJson)}}"
