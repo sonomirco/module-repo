@@ -38,7 +38,7 @@ jobs:
       uses: kzrnm/get-net-sdk-project-versions-action@v1
       id: get-version
       with:
-        proj-path: ./Gh-Components/Gh-Components.csproj    
+        proj-path: Gh-Components/Gh-Components.csproj    
         
     - name: 📜 Display
       id: set_var
