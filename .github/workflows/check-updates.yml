@@ -33,4 +33,4 @@ jobs:
     - name: 📜 Display
       run: |
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
-          echo ${{ create-json.json }}
+          echo ${{ create-json.output }}
