@@ -23,7 +23,7 @@ jobs:
       run: |
         packageversion=`${{ steps.get-versin.outputs.version }}`
         echo $packageversion
-        echo "::set-output name=version::$packageversion"
+        echo "::set-output name=output2::$packageversion"
         
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
@@ -56,4 +56,4 @@ jobs:
           
     - run: |
           echo "${{fromJson(steps.set_var.outputs.packageJson).name}}"
-          echo "${{needs.changes.outputs.version}}"
+          echo "${{needs.changes.outputs.output2}}"
