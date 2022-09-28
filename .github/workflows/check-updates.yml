@@ -75,11 +75,11 @@ jobs:
         echo "::set-output name=proj-dir::$dir"
     
     - name: push dyn module
-      if: contains(${{matrix.package}}, 'Dyn')
-      run: echo "build ${{steps.directory.outputs.dir}}"
+      if: ${{contains(matrix.package, 'Dyn')}}
+      run: echo "build ${{steps.directory.outputs.proj-dir}}"
     - name: push gh module
-      if: contains(${{matrix.package}}, 'Gh')
-      run: echo "build ${{steps.directory.outputs.dir}}"
+      if: ${{contains(matrix.package, 'Gh')}}
+      run: echo "build ${{steps.directory.outputs.proj-dir}}"
   
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
