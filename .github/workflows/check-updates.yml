@@ -18,8 +18,8 @@ jobs:
       id: filter
       with:
         filters: |
-          GhComponents: 'Gh-Components/**'
-          ModulComponents: 'ModulComponents/**'
+          Dyn.Module: 'Dyn.Module/**'
+          Gh.Module: 'Gh.Module/**'
 
   # JOB to build and test each of modified packages
   build:
@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
-        package: ['GhComponents', 'ModulComponents'] # ${{ fromJSON(needs.changes.outputs.packages) }}
+        package: ['Dyn.Module', 'Gh.Module'] # ${{ fromJSON(needs.changes.outputs.packages) }}
       fail-fast: true
       max-parallel: 1
     runs-on: ubuntu-latest
@@ -73,6 +73,13 @@ jobs:
         dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, 'proj') }}
         echo $dir
         echo "::set-output name=proj-dir::$dir"
+    
+    - name: push dyn module
+      if: contains(${{matrix.package}}, 'Dyn')
+      run: echo "build ${{steps.directory.outputs.dir}}
+    - name: push gh module
+      if: contains(${{matrix.package}}, 'Gh')
+      run: echo "build ${{steps.directory.outputs.dir}}
   
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
