@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
-        package: ['Dyn.Module', 'Gh.Module'] # ${{ fromJSON(needs.changes.outputs.packages) }}
+        package: ['Dyn:Module', 'Gh:Module'] # ${{ fromJSON(needs.changes.outputs.packages) }}
       fail-fast: true
       max-parallel: 1
     runs-on: ubuntu-latest
