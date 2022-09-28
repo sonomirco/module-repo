@@ -71,7 +71,7 @@ jobs:
 
     - name: Test
       run: |
-          yq w versions.yaml ${{matrix.package}} ${{steps.bump-with-alpha.outputs.result}}
+          yq w --inplace --doc versions.yaml ${{matrix.package}} ${{steps.bump-with-alpha.outputs.result}}
           
         
         
