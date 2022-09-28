@@ -37,7 +37,7 @@ jobs:
       id: Read-yaml
       uses: jbutcher5/read-yaml@main 
       with:
-        file: '.github/version.yml'
+        file: 'version.yml'
         key-path: '["${{matrix.package}}"]'
         
     - name: ⚙️ Bump if alpha.
@@ -72,10 +72,12 @@ jobs:
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
-        valueFile: '.github/version.yml'
+        valueFile: 'version.yml'
         propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
-        commitChange: true
+        targetBranch: main
+        branch: main/${{matrix.package}}
+        createPR: true
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         token: ${{ secrets.GITHUB_TOKEN }}
         
