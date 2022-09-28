@@ -76,7 +76,6 @@ jobs:
         propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
         commitChange: true
-        updateFile: true
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         token: ${{ secrets.GITHUB_TOKEN }}
         
