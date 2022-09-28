@@ -65,7 +65,7 @@ jobs:
       id: directory
       run: | 
         dir='${{matrix.package}}/${{matrix.package}}.proj'
-        dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, proj) }}
+        dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, 'proj') }}
         echo $dir
         echo "::set-output name=proj-dir::$dir"
 
