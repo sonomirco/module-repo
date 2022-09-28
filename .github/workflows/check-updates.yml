@@ -18,7 +18,7 @@ jobs:
       id: filter
       with:
         filters: |
-          Gh-Components: 'Gh-Components/**'
+          GhComponents: 'Gh-Components/**'
           ModulComponents: 'ModulComponents/**'
 
   # JOB to build and test each of modified packages
@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
-        package: ['Gh-Components', 'ModulComponents'] # ${{ fromJSON(needs.changes.outputs.packages) }}
+        package: ['GhComponents', 'ModulComponents'] # ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -73,7 +73,7 @@ jobs:
       uses: fjogeleit/yaml-update-action@main
       with:
         valueFile: '.github/version.yml'
-        propertyPath: 'version.${{matrix.package}}'
+        propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
         commitChange: true
         updateFile: true
