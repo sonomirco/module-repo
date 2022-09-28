@@ -26,10 +26,10 @@ jobs:
     needs: changes
     strategy:
       matrix:
-        fail-fast: true
-        max-parallel: 1
         # Parse JSON array containing names of all filters matching any of changed files
         package: ['GhComponents', 'ModulComponents'] # ${{ fromJSON(needs.changes.outputs.packages) }}
+      fail-fast: true
+      max-parallel: 1
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
