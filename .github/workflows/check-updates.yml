@@ -69,15 +69,16 @@ jobs:
         echo $dir
         echo "::set-output name=proj-dir::$dir"
 
-    - name: Update values.yaml
+    - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
         valueFile: '.github/version.yml'
         propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
-        commitChange: false
+        commitChange: true
         updateFile: true
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
+        token: ${{ secret.MMRepoHook }}
         
         
         
