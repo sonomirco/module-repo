@@ -10,7 +10,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: GetValue
+    - name: 🏗 Set up yq
+      uses: frenck/action-setup-yq@v1
+    - name: 🚀 Use yq
       run: |
+        yq --version
         var=yq '.Gh.Module' versions.yaml
         echo $var
+
