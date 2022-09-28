@@ -69,18 +69,10 @@ jobs:
         echo $dir
         echo "::set-output name=proj-dir::$dir"
 
-    - name: Update yaml
-      uses: fjogeleit/yaml-update-action@main
-      with:
-        valueFile: 'versions.yaml'
-        propertyPath: '${{matrix.package}}'
-        value: ${{steps.bump-with-alpha.outputs.result}}
-        masterBranchName: main
-        targetBranch: main
-        branch: main/${{matrix.package}}
-        createPR: false
-        message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Test
+      run: |
+          yq w versions.yaml ${{matrix.package}} ${{steps.bump-with-alpha.outputs.result}}
+          
         
         
         
