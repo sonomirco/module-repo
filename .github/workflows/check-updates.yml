@@ -46,7 +46,7 @@ jobs:
       with:
         result-encoding: string
         script: |
-                const incoming = "${{ steps.yaml-data.outputs.data }}"
+                const incoming = "${{ steps.Read-yaml.outputs.data }}"
                 console.log("Incoming Tag: " + incoming)
                 if(incoming.includes('alpha')) {
                   const oldNum = incoming.match(/alpha[.]*(\d+)/)[1]
@@ -73,9 +73,9 @@ jobs:
       uses: fjogeleit/yaml-update-action@main
       with:
         valueFile: '.github/version.yml'
-        propertyPath: '${{matrix.package}}'
+        propertyPath: 'version.${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
-        commitChange: false
+        commitChange: true
         updateFile: true
         
         
