@@ -7,48 +7,29 @@ jobs:
   # JOB to run change detection
   changes:
     runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.filter.outputs.changes }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Get version proj
-      uses: kzrnm/get-net-sdk-project-versions-action@v1
-      id: get-version
-      with:
-        proj-path: ./Gh-Components/Gh-Components.csproj 
-    - id: setversion
-      run: | 
-        packageversion="${{steps.get-version.outputs.version}}"
-        echo $packageversion
-        echo "::set-output name=version::$packageversion"
-        
-    - name: Run read-yaml action
-      id: yaml-data
-      uses: jbutcher5/read-yaml@main 
-      with:
-        file: '.github/version.yml'
-        key-path: '["Gh-Components"]'
-
-    - name: Display read-yaml output
-      run: echo "${{ steps.yaml-data.outputs.data }}"
-        
+    
     # For pull requests it's not necessary to checkout the code
     - name: Check which services were modified
       uses: dorny/paths-filter@v2
       id: filter
       with:
         filters: |
-          project1: 'Gh-Components/**'
-          project2: 'ModulComponents/**'
-          
-    outputs:
-      # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
-      output2: ${{ steps.setversion.outputs.version }}
+          Gh-Components: 'Gh-Components/**'
+          ModulComponents: 'ModulComponents/**'
+        
 
   # JOB to build and test each of modified packages
   build:
-    runs-on: ubuntu-latest
     needs: changes
+    strategy:
+      matrix:
+        packages: ${{ fromJson(needs.changes.outputs.packages) }}
+    runs-on: ubuntu-latest
     steps:
     - run: echo ${{needs.changes.outputs.output2}}
     
