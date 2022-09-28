@@ -75,8 +75,9 @@ jobs:
         valueFile: '.github/version.yml'
         propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
-        commitChange: true
-        updateFile: true
+        branch: master/${{ matrix.package }}
+        targetBranch: master
+        createPR: true
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         
         
