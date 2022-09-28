@@ -37,7 +37,7 @@ jobs:
       id: Read-yaml
       uses: jbutcher5/read-yaml@main 
       with:
-        file: 'version.yml'
+        file: 'versions.yml'
         key-path: '["${{matrix.package}}"]'
         
     - name: ⚙️ Bump if alpha.
@@ -72,7 +72,7 @@ jobs:
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
-        valueFile: 'version.yml'
+        valueFile: 'versions.yml'
         propertyPath: '${{matrix.package}}'
         value: ${{steps.bump-with-alpha.outputs.result}}
         targetBranch: main
