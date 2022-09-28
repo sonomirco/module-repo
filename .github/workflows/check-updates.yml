@@ -68,10 +68,7 @@ jobs:
         dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, 'proj') }}
         echo $dir
         echo "::set-output name=proj-dir::$dir"
-
-    - name: Test
-      run: yq e '${{matrix.package}} = ${{steps.bump-with-alpha.outputs.result}}' -i versions.yaml 
-          
+  
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
