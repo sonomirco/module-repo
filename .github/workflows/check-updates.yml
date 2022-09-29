@@ -42,8 +42,9 @@ jobs:
     - name: Read yaml file
       id: yaml
       run: | 
-        current=`yq '.${{matrix.package}}' versions.yaml`
-        echo "::set-output name=version::$current"
+       current=`yq '.${{matrix.package}}' versions.yaml`
+       echo "::set-output name=version::$current"
+       mkdir -p path/to/artifact
  
     - name: ⚙️ Bump if alpha.
       id: bump-with-alpha
@@ -73,8 +74,6 @@ jobs:
         dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, 'proj') }}
         echo $dir
         echo "::set-output name=proj-dir::$dir"
-    
-    - run: mkdir -p path/to/artifact
         
     - name: push dyn module
       if: ${{contains(matrix.package, 'Dyn')}}
@@ -111,51 +110,6 @@ jobs:
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         token: ${{ secrets.GITHUB_TOKEN }}
         
-  create-release:
-    name: release
-    needs: build
-    runs-on: windows-latest
-    steps:
-    
-      - name: 🛎 Checkout repo
-        uses: actions/checkout@v2
-        with: 
-          fetch-depth: 0
-          
-      - name: 📥 Download artifact
-        uses: actions/download-artifact@v2
-        id: download
-        with:
-          name: libraries
-          
-      - name: 📘 Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: 1.0.0
-          release_name: Release
-          body: |
-            ## Title
-
-            ## Body
-          draft: true
-          prerelease: false
-          
-      - name: 💾 7Zip library
-        run: |
-          echo ${{steps.download.outputs.download-path}}
-          7z a -t7z -mx=9 Libraries.7z ${{steps.download.outputs.download-path}}/*
-
-      - name: 📤 Upload library to release
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: 1.0.0
-          file: Libraries.7z
-          asset_name: Libraries.7z
-          overwrite: true
         
         
         
