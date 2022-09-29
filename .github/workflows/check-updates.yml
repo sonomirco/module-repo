@@ -75,10 +75,17 @@ jobs:
     
     - name: push dyn module
       if: ${{contains(matrix.package, 'Dyn')}}
-      run: echo "build ${{steps.directory.outputs.proj-dir}}"
+      run: |
+        echo "build ${{steps.directory.outputs.proj-dir}}"
+        mkdir -p path/to/artifact/${{matrix.package}}
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}/library.txt
+      
     - name: push gh module
       if: ${{contains(matrix.package, 'Gh')}}
-      run: echo "build ${{steps.directory.outputs.proj-dir}}"
+      run: |
+        echo "build ${{steps.directory.outputs.proj-dir}}"
+        mkdir -p path/to/artifact/${{matrix.package}}
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}/library.txt
   
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
