@@ -37,21 +37,20 @@ jobs:
       with:
         fetch-depth: 0
         ref: main
-      
-    - name: Read-yaml action
-      id: Read-yaml
-      uses: jbutcher5/read-yaml@main 
-      with:
-        file: 'versions.yaml'
-        key-path: '["${{matrix.package}}"]'
         
+    - name: Read yaml file
+      id: yaml
+      run: | 
+        value=`yq '.${{matrix.package}}' versions.yaml`
+        echo "::set-output name=version::$value"
+ 
     - name: ⚙️ Bump if alpha.
       id: bump-with-alpha
       uses: actions/github-script@v3
       with:
         result-encoding: string
         script: |
-                const incoming = "${{ steps.Read-yaml.outputs.data }}"
+                const incoming = "${{ steps.yaml.outputs.version }}"
                 console.log("Incoming Tag: " + incoming)
                 if(incoming.includes('alpha')) {
                   const oldNum = incoming.match(/alpha[.]*(\d+)/)[1]
