@@ -17,4 +17,5 @@ jobs:
         yq --version
         version=`yq '.Gh.Module' versions.yaml`
         echo $version
-
+    
+    - run: yq '.Gh.Module' versions.yaml
