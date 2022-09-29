@@ -85,6 +85,13 @@ jobs:
         echo "build ${{steps.directory.outputs.proj-dir}}"
         echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}.txt
   
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.package}}
+        path: path/to/artifact/${{matrix.package}}.txt
+        retention-days: 1
+  
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
@@ -102,14 +109,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: ls path/to/artifact/*
+    - name: Checkout
+      uses: actions/checkout@v2
       
-      - name: 💾 7Zip library
-        run: 7z a -t7z -mx=9 Libraries.7z path/to/artifact/*
-        
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: package
-          path: Libraries.7z
-          retention-days: 1
+    - uses: actions/download-artifact@v3
+
+    - name: Display structure of downloaded files
+      run: ls -R
