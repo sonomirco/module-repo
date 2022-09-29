@@ -1,4 +1,4 @@
-name: Checks for changes
+name: Build by changes
 
 on:
   workflow_dispatch:
@@ -20,6 +20,7 @@ jobs:
         filters: |
           Dyn.Module: 'Dyn.Module/**'
           Gh.Module: 'Gh.Module/**'
+          
   # JOB to build and test each of modified packages
   build:
     needs: changes
@@ -104,7 +105,7 @@ jobs:
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         token: ${{ secrets.GITHUB_TOKEN }}
 
-  artefacts:
+  release:
     needs: build
     runs-on: ubuntu-latest
     steps:
