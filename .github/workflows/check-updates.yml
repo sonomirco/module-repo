@@ -42,8 +42,8 @@ jobs:
     - name: Read yaml file
       id: yaml
       run: | 
-        value=`yq '.${{matrix.package}}' versions.yaml`
-        echo "::set-output name=version::$value"
+        current=`yq '.${{matrix.package}}' versions.yaml`
+        echo "::set-output name=version::$current"
  
     - name: ⚙️ Bump if alpha.
       id: bump-with-alpha
