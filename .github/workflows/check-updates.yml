@@ -110,15 +110,38 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - run: mkdir -p path/to/artifacts
+    - run: mkdir -p path/artifacts
       
     - uses: actions/download-artifact@v3
       id: download
       with:
-        path: path/to/artifacts
+        path: path/artifacts
+        
+    - name: 📘 Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: 1.0.0
+        release_name: Release
+        body: |
+            ## Title
 
-    - name: Display structure of downloaded files
+            ## Body
+        draft: true
+        prerelease: false
+          
+    - name: 💾 7Zip library
       run: |
-        ls path/to/artifacts
-        echo ${{steps.download.outputs.download-path}}
         ls ${{steps.download.outputs.download-path}}
+        7z a -t7z -mx=9 Libraries.7z ${{steps.download.outputs.download-path}}/*
+
+    - name: 📤 Upload library to release
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: 1.0.0
+        file: Libraries.7z
+        asset_name: Libraries.7z
+        overwrite: true
