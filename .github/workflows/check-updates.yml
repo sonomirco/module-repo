@@ -77,20 +77,13 @@ jobs:
       if: ${{contains(matrix.package, 'Dyn')}}
       run: |
         echo "build ${{steps.directory.outputs.proj-dir}}"
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > ${{matrix.package}}.txt
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}.txt
       
     - name: push gh module
       if: ${{contains(matrix.package, 'Gh')}}
       run: |
         echo "build ${{steps.directory.outputs.proj-dir}}"
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > ${{matrix.package}}.txt
-        
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: artifact ${{matrix.package}}
-        path: path/to/artifact
-        retention-days: 1
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}.txt
   
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
@@ -109,9 +102,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: main
-      
       - run: ls path/to/artifact/*
+      
+      - name: 💾 7Zip library
+        run: 7z a -t7z -mx=9 Libraries.7z path/to/artifact/*
+        
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: Libraries.7z
+          retention-days: 1
