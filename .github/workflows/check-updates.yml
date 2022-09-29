@@ -42,7 +42,6 @@ jobs:
       run: | 
         value=`yq '.${{matrix.package}}' versions.yaml`
         echo "::set-output name=version::$value"
-        mkdir -p path/to/artifact
  
     - name: ⚙️ Bump if alpha.
       id: bump-with-alpha
@@ -77,19 +76,19 @@ jobs:
       if: ${{contains(matrix.package, 'Dyn')}}
       run: |
         echo "build ${{steps.directory.outputs.proj-dir}}"
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}.txt
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > ${{matrix.package}}.txt
       
     - name: push gh module
       if: ${{contains(matrix.package, 'Gh')}}
       run: |
         echo "build ${{steps.directory.outputs.proj-dir}}"
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}.txt
+        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > ${{matrix.package}}.txt
   
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         name: ${{matrix.package}}
-        path: path/to/artifact/${{matrix.package}}.txt
+        path: ${{matrix.package}}.txt
         retention-days: 1
   
     - name: Update yaml
@@ -111,12 +110,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - run: mkdir -p path/to/artifacts
       
     - uses: actions/download-artifact@v3
       id: download
+      with:
+        path: path/to/artifacts
 
     - name: Display structure of downloaded files
       run: |
-        ls .
+        ls path/to/artifacts
         echo ${{steps.download.outputs.download-path}}
         ls ${{steps.download.outputs.download-path}}
