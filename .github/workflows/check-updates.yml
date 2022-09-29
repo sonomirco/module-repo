@@ -20,7 +20,6 @@ jobs:
         filters: |
           Dyn.Module: 'Dyn.Module/**'
           Gh.Module: 'Gh.Module/**'
-
   # JOB to build and test each of modified packages
   build:
     needs: changes
@@ -30,7 +29,7 @@ jobs:
         package: ['Dyn.Module', 'Gh.Module'] # ${{ fromJSON(needs.changes.outputs.packages) }}
       fail-fast: true
       max-parallel: 1
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -38,13 +37,12 @@ jobs:
         fetch-depth: 0
         ref: main
         
-    # https://www.baeldung.com/linux/yq-utility-processing-yaml
     - name: Read yaml file
       id: yaml
       run: | 
-       current=`yq '.${{matrix.package}}' versions.yaml`
-       echo "::set-output name=version::$current"
-       mkdir -p path/to/artifact
+        value=`yq '.${{matrix.package}}' versions.yaml`
+        echo "::set-output name=version::$value"
+        mkdir -p path/to/artifact
  
     - name: ⚙️ Bump if alpha.
       id: bump-with-alpha
@@ -74,29 +72,14 @@ jobs:
         dir2=${{ format('{0}/{1}.{2}', matrix.package, matrix.package, 'proj') }}
         echo $dir
         echo "::set-output name=proj-dir::$dir"
-        
+    
     - name: push dyn module
       if: ${{contains(matrix.package, 'Dyn')}}
-      run: |
-        echo "build ${{steps.directory.outputs.proj-dir}}"
-        mkdir -p path/to/artifact/${{matrix.package}}
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}/library.txt
-      
+      run: echo "build ${{steps.directory.outputs.proj-dir}}"
     - name: push gh module
       if: ${{contains(matrix.package, 'Gh')}}
-      shell: bash
-      run: |
-        echo "build ${{steps.directory.outputs.proj-dir}}"
-        mkdir -p path/to/artifact/${{matrix.package}}
-        echo "${{ format('Project: {0} - Version:{1}', matrix.package, steps.bump-with-alpha.outputs.result) }}" > path/to/artifact/${{matrix.package}}/library.txt
-      
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: libraries
-        path: path/to/artifact/*
-        retention-days: 1
-        
+      run: echo "build ${{steps.directory.outputs.proj-dir}}"
+  
     - name: Update yaml
       uses: fjogeleit/yaml-update-action@main
       with:
@@ -109,13 +92,3 @@ jobs:
         commitChange: true
         message: ${{ format('{0}{1}.{2}', 'Bumped the version for the project - ', matrix.package, 'proj') }} 
         token: ${{ secrets.GITHUB_TOKEN }}
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
