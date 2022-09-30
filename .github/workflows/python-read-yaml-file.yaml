@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: reader
-        run: echo ${{ fromJSON(needs.changes.outputs.values) }}
+        run: echo ${{ needs.changes.outputs.values }}
         
   python:
     needs: changes
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variable: ${{ fromJSON(needs.changes.outputs.values) }}
+        variable: ${{ needs.changes.outputs.values }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
