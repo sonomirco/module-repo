@@ -29,7 +29,7 @@ jobs:
         id: bumper
         run: |
           inputs=${{ fromJson(needs.changes.outputs.values) }}
-          python bump-version.py --modules $inputs
+          python bump-version.py
       - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped) }}
 
   python:
