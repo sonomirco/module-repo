@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: 🚀 Append to array
       run: |
-        temp=(${PROJECTS})
+        temp=(${PROJECTS[@]})
         echo ${temp[@]}
         temp+=("Mirco")
         echo ${temp[@]}
