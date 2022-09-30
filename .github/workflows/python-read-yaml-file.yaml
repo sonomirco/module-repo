@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - id: setvar
         run: | 
-          echo "::set-output name=variable::'Gh.Mod'"
+          echo "::set-output name=variable::'Dyn.Module'"
           
       - uses: actions/setup-python@v2
         with:
@@ -27,7 +27,7 @@ jobs:
             with open('versions.yaml', 'r') as file:
               prime_service = yaml.safe_load(file)
             
-            print(prime_service['Dyn']['Module'])
-            
             value = ${{steps.setvar.outputs.variable}}
-            print(value)
+            values = value.split(".")
+            print(prime_service[values[0]][values[1]])
+            
