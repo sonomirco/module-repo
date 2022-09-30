@@ -13,21 +13,15 @@ def read_args() -> argparse.Namespace:
 def bump_versions():
     args = read_args()
     inputs =  args.modules
-    json_result = None
     print(inputs)
     
-    try:
-        json_result = json.loads(inputs)
-    except Exception:
-        print("error")
-     
     print(json_result)
     bumped_versions = {}
 
     with open('versions.yaml', 'r') as file:
         prime_service = yaml.safe_load(file)
 
-        for input in json_result:
+        for input in inputs:
             split_path = input.split('-') 
             version = prime_service[split_path[0]][split_path[1]]
             print(version)
