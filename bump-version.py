@@ -31,6 +31,7 @@ def bump_versions():
                 new_version = version + '-alpha.0'
                 bumped_versions[input]=new_version
     json_object = json.dumps(bumped_versions) 
+    print(json_object)
     print(f"::set-output name=module_bumped::{json_object}")
 
 if __name__ == "__main__":
