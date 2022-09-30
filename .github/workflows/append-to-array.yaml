@@ -1,3 +1,5 @@
+# https://gist.github.com/magnetikonline/0ca47c893de6a380c87e4bdad6ae5cf7
+# https://unix.stackexchange.com/questions/328882/how-to-add-remove-an-element-to-from-the-array-in-bash
 name: Append to array
 
 on:
