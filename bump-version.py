@@ -6,7 +6,7 @@ import json
 # https://www.thecodeforest.io/post/2022-01-04-automate-github-actions/automate-github-actions/
 def read_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create player id dataframe")
-    parser.add_argument("--modules", nargs="*", default=["Dyn.Module", "Gh.Module"], help="modules listed in an array")
+    parser.add_argument("--modules", nargs="*", default=["Dyn", "Gh"], help="modules listed in an array")
     args = parser.parse_args()
     return args
 
