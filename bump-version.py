@@ -13,6 +13,7 @@ def read_args() -> argparse.Namespace:
 def bump_versions():
     args = read_args()
     inputs =  args.modules
+    print(inputs)
     bumped_versions = {}
 
     with open('versions.yaml', 'r') as file:
