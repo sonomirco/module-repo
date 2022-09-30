@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - id: setvar
+        run: | 
+          echo "::set-output name=variable::Gh.Mod"
+          
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
@@ -24,3 +28,6 @@ jobs:
               prime_service = yaml.safe_load(file)
             
             print(prime_service['Dyn']['Module'])
+            
+            input = get_input(${{steps.setvar.outputs.variable}}
+            print(input)
