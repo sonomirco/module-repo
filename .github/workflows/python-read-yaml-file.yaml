@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: setvar
         run: | 
-          echo "::set-output name=variables::[\"Dyn-Module\", \"Gh-Module\"]"
+          echo "::set-output name=variables::['Dyn-Module', 'Gh-Module']"
           
   reading:
     needs: changes
@@ -26,7 +26,7 @@ jobs:
           cache: 'pip'
       - id: bumper
         run: |
-          v=${{ fromJson(needs.changes.outputs.values) }}
+          v=${{ needs.changes.outputs.values }}
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python bump-version.py --modules $v
