@@ -28,6 +28,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          python bump-version.py --modules ${{ fromJson(steps.bumper.outputs.module_bumped) }
+          python bump-version.py --modules ${{ fromJson(steps.bumper.outputs.module_bumped) }}
       - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped).Dyn-Module }}
             
