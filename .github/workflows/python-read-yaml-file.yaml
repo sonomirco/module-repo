@@ -24,10 +24,9 @@ jobs:
         with:
           python-version: '3.9'
           cache: 'pip'
-      - run: pip install -r requirements.txt
-      - name: run python
-        id: bumper
+      - id: bumper
         run: |
+          pip install -r requirements.txt
           inputs=${{ fromJson(needs.changes.outputs.values) }}
           python bump-version.py
       - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped) }}
