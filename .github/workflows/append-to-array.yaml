@@ -1,0 +1,22 @@
+name: Append to array
+
+on:
+  workflow_dispatch:
+
+env:
+  PROJECTS:()
+  
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚀 Append to array
+      run: |
+        ${{ env.PROJECTS+=('Mirco') }}
+    - name: 🚀 Append to array
+      run: |
+        ${{ env.PROJECTS+=('Erika') }}
+        for value in "${env.PROJECTS[@]}"
+        do
+          echo $value
+        done
