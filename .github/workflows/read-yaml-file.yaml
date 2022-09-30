@@ -1,4 +1,4 @@
-name: Test
+name: Read yaml file
 
 on:
   workflow_dispatch:
