@@ -11,11 +11,16 @@ jobs:
     outputs:
       values: ${{ steps.setvar.outputs.variables }}
     steps:
-      - uses: actions/checkout@v3
       - id: setvar
         run: | 
           echo "::set-output name=variables::['Dyn.Module', 'Gh.Module']"
           
+  reading:
+    runs-on: ubuntu-latest
+    steps:
+      - name: reader
+        run: echo ${{ fromJSON(needs.changes.outputs.values) }}
+        
   python:
     needs: changes
     runs-on: ubuntu-latest
@@ -23,7 +28,7 @@ jobs:
       matrix:
         variable: ${{ fromJSON(needs.changes.outputs.values) }}
     steps:
-          
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: '3.9'
