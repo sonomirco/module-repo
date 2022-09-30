@@ -12,19 +12,9 @@ jobs:
     steps:
     - name: 🚀 Append to array
       run: |
-        temp=${PROJECTS}
-        echo $temp
+        temp=(${PROJECTS})
+        echo ${temp[@]}
         temp+=("Mirco")
-        echo $temp
+        echo ${temp[@]}
         echo "PROJECTS=$temp" >> $GITHUB_ENV
         echo ${PROJECTS}
-
-    - name: 🚀 Append to array
-      run: |
-        temp=${PROJECTS}
-        echo $temp
-        $temp+=("Erika")
-        for value in "${temp[@]}"
-        do
-          echo $value
-        done
