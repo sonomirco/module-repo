@@ -10,10 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+    
       - uses: jannekem/run-python-script-action@v1
         with:
           script: |
-            !pip install pyyaml
             import yaml
             with open('versions.yaml', 'r') as file
               prime_service = yaml.safe_load(file)
