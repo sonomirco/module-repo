@@ -14,6 +14,6 @@ jobs:
       run: |
         temp=${PROJECTS}
         echo $temp
-        temp+=("Mirco')
+        temp+=("Mirco")
         echo ${#temp[@]}
         echo "PROJECTS=$temp" >> $GITHUB_ENV
