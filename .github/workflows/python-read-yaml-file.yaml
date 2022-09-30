@@ -29,5 +29,5 @@ jobs:
             
             print(prime_service['Dyn']['Module'])
             
-            value = get_input(${{steps.setvar.outputs.variable}})
+            value = ${{steps.setvar.outputs.variable}}
             print(value)
