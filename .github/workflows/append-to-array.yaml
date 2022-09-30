@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: 🚀 Append to array
       run: |
-        temp=()
+        temp=(${{env.PROJECTS[@]}})
         temp+=("Mirco")
         echo ${temp[@]}
         echo "PROJECTS=$temp" >> $GITHUB_ENV
