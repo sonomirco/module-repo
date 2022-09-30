@@ -1,0 +1,20 @@
+# https://gist.github.com/magnetikonline/0ca47c893de6a380c87e4bdad6ae5cf7
+# https://unix.stackexchange.com/questions/328882/how-to-add-remove-an-element-to-from-the-array-in-bash
+name: Python read yaml file
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v2
+      - uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            pip install pyyaml
+            import yaml
+            with open('versions.yaml', 'r') as file
+              prime_service = yaml.safe_load(file)
+              print(prime_service)
