@@ -29,5 +29,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python bump-version.py
-      - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped).Dyn }}
+      - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped).Dyn-Module }}
             
