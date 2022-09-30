@@ -1,18 +1,19 @@
 import yaml
 import re
 import argparse
+import json 
 
 # https://www.thecodeforest.io/post/2022-01-04-automate-github-actions/automate-github-actions/
 def read_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create player id dataframe")
-    parser.add_argument("--modules", type=[], help="modules listed in an array")
+    parser.add_argument("--modules", type=list, help="modules listed in an array")
     args = parser.parse_args()
     return args
 
 def bump_versions():
     args = read_args()
     inputs = args.modules
-    bumped_versions = []
+    bumped_versions = {}
 
     with open('versions.yaml', 'r') as file:
         prime_service = yaml.safe_load(file)
@@ -25,12 +26,12 @@ def bump_versions():
                 old_num = re.search('alpha[.]*(\d+)', version)[1]
                 bump_num = int(old_num)+1
                 new_version = re.sub('alpha.*\d+', f'alpha.{bump_num}', version)
-                bumped_versions.append(new_version)
+                bumped_versions[input]=new_version
             else:
                 new_version = version + '-alpha.0'
-                bumped_versions.append(new_version)
-        
-    return bump_versions
+                bumped_versions[input]=new_version
+    json_object = json.dumps(bumped_versions) 
+    print(f"::set-output name=module_bumped::{json_object}")
 
 if __name__ == "__main__":
     bump_versions()
