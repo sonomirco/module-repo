@@ -1,6 +1,5 @@
 import yaml
 import re
-import argparse
 import json 
 
 def bump_versions():
