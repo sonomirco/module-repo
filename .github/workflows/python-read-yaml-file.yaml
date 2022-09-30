@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: setvar
         run: | 
-          echo "::set-output name=variables::['Dyn-Module', 'Gh-Module']"
+          echo "::set-output name=variables::[\"Dyn-Module\", \"Gh-Module\"]"
           
   reading:
     needs: changes
