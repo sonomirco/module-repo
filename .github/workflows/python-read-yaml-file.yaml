@@ -13,36 +13,12 @@ jobs:
     steps:
       - id: setvar
         run: | 
-          echo "::set-output name=variables::['Dyn.Module', 'Gh.Module']"
+          echo "::set-output name=variables::'[\"Dyn.Module\", \"Gh.Module\"]'"
           
   reading:
+    needs: changes
     runs-on: ubuntu-latest
     steps:
       - name: reader
-        run: echo ${{ needs.changes.outputs.values }}
-        
-  python:
-    needs: changes
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        variable: ${{ needs.changes.outputs.values }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
-          cache: 'pip'
-      - run: pip install -r requirements.txt
-    
-      - uses: jannekem/run-python-script-action@v1
-        with:
-          script: |
-            import yaml
-            with open('versions.yaml', 'r') as file:
-              prime_service = yaml.safe_load(file)
-            
-            value = ${{matrix.variable}}
-            values = value.split(".")
-            print(prime_service[values[0]][values[1]])
+        run: echo ${{ fromJson(needs.changes.outputs.values) }}
             
