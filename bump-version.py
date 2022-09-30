@@ -6,20 +6,28 @@ import json
 # https://www.thecodeforest.io/post/2022-01-04-automate-github-actions/automate-github-actions/
 def read_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create player id dataframe")
-    parser.add_argument("--modules", nargs="*", default=["Dyn-Module", "Gh-Module"], help="modules listed in an array")
+    parser.add_argument("--modules", help="modules listed in an array")
     args = parser.parse_args()
     return args
 
 def bump_versions():
     args = read_args()
     inputs =  args.modules
+    json_result = None
     print(inputs)
+    
+    try:
+        json_result = json.loads(inputs)
+    except Exception:
+        print("error")
+     
+    print(json_result)
     bumped_versions = {}
 
     with open('versions.yaml', 'r') as file:
         prime_service = yaml.safe_load(file)
 
-        for input in inputs:
+        for input in json_result:
             split_path = input.split('-') 
             version = prime_service[split_path[0]][split_path[1]]
             print(version)
