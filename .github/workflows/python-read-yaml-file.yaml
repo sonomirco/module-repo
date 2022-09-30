@@ -13,7 +13,7 @@ jobs:
       - uses: jannekem/run-python-script-action@v1
         with:
           script: |
-            pip install pyyaml
+            !pip install pyyaml
             import yaml
             with open('versions.yaml', 'r') as file
               prime_service = yaml.safe_load(file)
