@@ -22,11 +22,12 @@ def bump_versions():
     bumped_versions = {}
 
     with open('versions.yaml', 'r') as file:
-        prime_service = yaml.safe_load(file)
+        doc = yaml.safe_load(file)
+        new_version = ''
 
         for input in inputs:
             split_path = input.split('-') 
-            version = prime_service[split_path[0]][split_path[1]]
+            version = doc[split_path[0]][split_path[1]]
             print(version)
             if 'alpha' in version:
                 old_num = re.search('alpha[.]*(\d+)', version)[1]
@@ -36,6 +37,12 @@ def bump_versions():
             else:
                 new_version = version + '-alpha.0'
                 bumped_versions[input]=new_version
+                    
+            doc[split_path[0]][split_path[1]] = new_version
+
+    with open('versions.yaml', 'w') as file:
+        yaml.dump(doc, file
+                  
     json_object = json.dumps(bumped_versions) 
     print(json_object)
     print(f"::set-output name=module_bumped::{json_object}")
