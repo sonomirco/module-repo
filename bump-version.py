@@ -19,25 +19,28 @@ def bump_versions():
     args = read_args()
     inputs = ast.literal_eval(args.modules)
     print(f"inputs -> {inputs}")
-    bumped_versions = {}
+    bumped_versions = []
 
     with open('versions.yaml', 'r') as file:
         doc = yaml.safe_load(file)
         new_version = ''
+        temp_dict = {}
 
         for input in inputs:
             split_path = input.split('-') 
             version = doc[split_path[0]][split_path[1]]
+            temp_dict['Module']=input
             print(version)
             if 'alpha' in version:
                 old_num = re.search('alpha[.]*(\d+)', version)[1]
                 bump_num = int(old_num)+1
                 new_version = re.sub('alpha.*\d+', f'alpha.{bump_num}', version)
-                bumped_versions[input]=new_version
+                temp_dict['Version']=new_version
             else:
                 new_version = version + '-alpha.0'
-                bumped_versions[input]=new_version
-                    
+                temp_dict['Version']=new_version
+                
+            bumped_versions.append(temp_dict)        
             doc[split_path[0]][split_path[1]] = new_version
 
     with open('versions.yaml', 'w') as file:
