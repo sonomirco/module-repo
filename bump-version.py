@@ -19,7 +19,7 @@ def bump_versions():
     args = read_args()
     inputs = ast.literal_eval(args.modules)
     print(f"inputs -> {inputs}")
-    bumped_versions = []
+    bumped_versions = {"include":[]}
 
     with open('versions.yaml', 'r') as file:
         doc = yaml.safe_load(file)
@@ -40,7 +40,7 @@ def bump_versions():
                 new_version = version + '-alpha.0'
                 temp_dict['Version']=new_version
                 
-            bumped_versions.append(temp_dict)        
+            bumped_versions["include"].append(temp_dict)       
             doc[split_path[0]][split_path[1]] = new_version
 
     with open('versions.yaml', 'w') as file:
