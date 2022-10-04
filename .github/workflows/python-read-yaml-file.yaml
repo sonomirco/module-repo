@@ -33,4 +33,10 @@ jobs:
           pip install -r requirements.txt
           python bump-version.py --modules "${{ needs.changes.outputs.values }}"
       - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped).Dyn-Module }}
+      
+      - uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Sandbox
+          message: 'Updated the yaml file with the versions!'
+          add: 'versions.yaml'
             
