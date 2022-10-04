@@ -41,7 +41,7 @@ def bump_versions():
             doc[split_path[0]][split_path[1]] = new_version
 
     with open('versions.yaml', 'w') as file:
-        yaml.dump(doc, file
+        yaml.dump(doc, file)
                   
     json_object = json.dumps(bumped_versions) 
     print(json_object)
