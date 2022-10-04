@@ -5,6 +5,7 @@ import json
 import ast
 
 # https://www.thecodeforest.io/post/2022-01-04-automate-github-actions/automate-github-actions/
+# https://shipyard.build/blog/your-first-python-github-action/
 def read_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create player id dataframe")
     # this is the way of parsig a list of elements.
