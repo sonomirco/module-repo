@@ -18,9 +18,11 @@ jobs:
           # Other solution is passing the list as a string.
           echo "::set-output name=variables::['Dyn-Module', 'Gh-Module']"
           
-  reading:
+  bumping:
     needs: changes
     runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.bumper.outputs.module_bumped }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
@@ -32,7 +34,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           python bump-version.py --modules "${{ needs.changes.outputs.values }}"
-      - run: echo ${{ fromJson(steps.bumper.outputs.module_bumped).Dyn-Module }}
       
       - uses: EndBug/add-and-commit@v9
         with:
@@ -40,3 +41,15 @@ jobs:
           message: 'Updated the yaml file with the versions!'
           add: 'versions.yaml'
             
+  reading:
+    needs: bumping
+    strategy:
+      matrix:
+        package: ${{ fromJSON(needs.bumping.outputs.versions) }}
+      fail-fast: true
+      max-parallel: 1
+    runs-on: ubuntu-latest
+    steps:
+          - run: |
+              echo ${{ package.Module }}
+              echo ${{ package.Version }}
