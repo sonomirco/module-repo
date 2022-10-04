@@ -2,17 +2,22 @@ import yaml
 import re
 import argparse
 import json 
+import ast
 
 # https://www.thecodeforest.io/post/2022-01-04-automate-github-actions/automate-github-actions/
 def read_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Create player id dataframe")
-    parser.add_argument("--modules", nargs="+", default=["Dyn-Module", "Gh-Module"], help="modules listed in an array")
+    # this is the way of parsig a list of elements.
+    # parser.add_argument("--modules", nargs="+", default=["Dyn-Module", "Gh-Module"], help="modules listed in an array")
+    # we will parse the list as a string.
+    parser.add_argument("--modules", type=str, help="modules listed in an array as a string")
+    
     args = parser.parse_args()
     return args
 
 def bump_versions():
     args = read_args()
-    inputs =  args.modules
+    inputs = ast.literal_eval(args.modules)
     print(f"inputs -> {inputs}")
     bumped_versions = {}
 
