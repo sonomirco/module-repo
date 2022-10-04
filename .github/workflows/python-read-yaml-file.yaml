@@ -44,12 +44,11 @@ jobs:
   reading:
     needs: bumping
     strategy:
-      matrix:
-        package: ${{ fromJSON(needs.bumping.outputs.versions) }}
+      matrix: ${{ fromJSON(needs.bumping.outputs.versions) }}
       fail-fast: true
       max-parallel: 1
     runs-on: ubuntu-latest
     steps:
           - run: |
-              echo ${{ package.Module }}
-              echo ${{ package.Version }}
+              echo ${{ matrix.Module }}
+              echo ${{ matrix.Version }}
