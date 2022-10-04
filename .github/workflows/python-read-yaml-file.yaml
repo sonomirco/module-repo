@@ -16,7 +16,7 @@ jobs:
           # if we are passing a list to the python script the elements need to be divided.
           # echo "::set-output name=variables::\"Dyn-Module\" \"Gh-Module\""
           # Other solution is passing the list as a string.
-          echo "::set-output name=variables::['Dyn-Module', 'Gh-Module']
+          echo "::set-output name=variables::['Dyn-Module', 'Gh-Module']"
           
   reading:
     needs: changes
