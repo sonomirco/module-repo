@@ -1,8 +1,7 @@
 
 name: Capture changes
 
-on:
-  workflow_dispatch:
+on: push
   
 jobs:
   changes:
