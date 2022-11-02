@@ -1,5 +1,5 @@
 
-name: Build by changes
+name: Capture changes
 
 on:
   workflow_dispatch:
