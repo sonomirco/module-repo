@@ -1,0 +1,17 @@
+
+name: Build by changes
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          file1: 'README.md'
